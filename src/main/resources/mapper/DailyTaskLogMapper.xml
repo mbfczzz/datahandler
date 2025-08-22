@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tiktok.mapper.DailyTaskLogMapper">
+
+    <!-- 插入一条日志 -->
+    <insert id="insert" parameterType="com.datahandler.entity.DailyTaskLog" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO daily_task_log (
+            task_name,
+            start_time,
+            end_time,
+            duration_ms,
+            total_records,
+            success_records,
+            fail_records,
+            status,
+            error_message,
+            created_at,
+            task_type
+        ) VALUES (
+                     #{taskName},
+                     #{startTime},
+                     #{endTime},
+                     #{durationMs},
+                     #{totalRecords},
+                     #{successRecords},
+                     #{failRecords},
+                     #{status},
+                     #{errorMessage},
+                     #{createdAt},
+                     #{type}
+                 )
+    </insert>
+
+    <!-- 根据 id 更新任务完成信息 -->
+    <update id="updateById" parameterType="com.datahandler.entity.DailyTaskLog">
+        UPDATE daily_task_log
+        SET
+            end_time = #{endTime},
+            duration_ms = #{durationMs},
+            total_records = #{totalRecords},
+            success_records = #{successRecords},
+            fail_records = #{failRecords},
+            status = #{status},
+            error_message = #{errorMessage}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据任务名称查询最新一条日志 -->
+    <select id="selectLatestByTaskName" parameterType="string" resultType="com.datahandler.entity.DailyTaskLog">
+        SELECT *
+        FROM daily_task_log
+        WHERE task_name = #{taskName}
+        ORDER BY start_time DESC
+        LIMIT 1
+    </select>
+
+</mapper>

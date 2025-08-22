@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tiktok.mapper.DailyTaskFailUserMapper">
+
+    <insert id="insertFailUser">
+        INSERT INTO daily_task_fail_user (task_log_id, user_id, reason, created_at,type)
+        VALUES (#{taskLogId}, #{userId}, #{reason}, NOW(), "user")
+    </insert>
+
+    <insert id="insertFailRoom">
+        INSERT INTO daily_task_fail_user (task_log_id, user_id,reason, created_at,type)
+        VALUES (#{taskLogId}, #{userId}, #{reason}, NOW(),"room")
+    </insert>
+
+</mapper>
